@@ -448,9 +448,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : dip4_Pin AENABLE2_Pin BENABLE_Pin SENSOR9_Pin
+  /*Configure GPIO pins : DIP3_Pin AENABLE2_Pin BENABLE_Pin SENSOR9_Pin
                            SENSOR15_Pin SENSOR16_Pin */
-  GPIO_InitStruct.Pin = dip4_Pin|AENABLE2_Pin|BENABLE_Pin|SENSOR9_Pin
+  GPIO_InitStruct.Pin = DIP3_Pin|AENABLE2_Pin|BENABLE_Pin|SENSOR9_Pin
                           |SENSOR15_Pin|SENSOR16_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

@@ -59,8 +59,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define dip4_Pin GPIO_PIN_14
-#define dip4_GPIO_Port GPIOC
+#define DIP3_Pin GPIO_PIN_14
+#define DIP3_GPIO_Port GPIOC
 #define AENABLE2_Pin GPIO_PIN_15
 #define AENABLE2_GPIO_Port GPIOC
 #define AC1_Pin GPIO_PIN_0
