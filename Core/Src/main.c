@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "gpio.h"
+#include "i2c.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -425,6 +426,7 @@ static void MX_USART2_UART_Init(void)
   * @param None
   * @retval None
   */
+
 
 /* USER CODE BEGIN 4 */
 
