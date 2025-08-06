@@ -99,8 +99,8 @@
 	uint32_t basespeed = 650;
 	uint32_t maxspeedr = 1000;
 	uint32_t maxspeedl = 1000;
-	uint32_t basespeedr = 750; // as a minimum 125 works
-	uint32_t basespeedl = 750;// as a minimum 125 works
+	uint32_t basespeedr = 600; // as a minimum 125 works
+	uint32_t basespeedl = 600;// as a minimum 125 works
 	const uint32_t sharp = 0;
 	const int ARR = 1;//do nout touch
 	const int poser = 2;//do not touch
@@ -362,16 +362,23 @@ void SystemClock_Config(void);
     if (last_idle < 10) {
         if (last_end == 0) {
             // last line detected on left side
-            inner_pid_control(200, 500);  // right, left speeds
+        	Motor_Set_Speed(&right_motor, 200);
+        	Motor_Set_Speed(&left_motor, 500);
+             // right, left speeds
         } else {
-            inner_pid_control(500, 200);  // right, left speeds
+        	Motor_Set_Speed(&right_motor, 500);
+            Motor_Set_Speed(&left_motor, 200);  // right, left speeds
         }
     } else {
         // sharp turns when line lost longer
         if (last_end == 0) {
-            inner_pid_control(1000, -230); // right forward, left reverse
+        	Motor_Set_Speed(&right_motor, 1000);
+        	Motor_Set_Speed(&left_motor, -230);
+            // right forward, left reverse
         } else {
-            inner_pid_control(-230, 1000); // right reverse, left forward
+        	Motor_Set_Speed(&right_motor, -230);
+        	Motor_Set_Speed(&left_motor, 1000);
+            // right reverse, left forward
         }
     }
 
@@ -383,7 +390,8 @@ void SystemClock_Config(void);
     if (actives == 0)
         sharp_turn();
     else
-        inner_pid_control(speed_right, speed_left);
+    	Motor_Set_Speed(&right_motor, speed_right);
+    	Motor_Set_Speed(&left_motor, speed_left);
     }
 
 	int errors_sum (int index, int abs)
@@ -459,9 +467,7 @@ void SystemClock_Config(void);
     if (pwm_r < -maxspeedr) pwm_r = -maxspeedr;
 
 
-    Motor_Set_Speed(&right_motor, pwm_r);
-    Motor_Set_Speed(&left_motor, pwm_l);
-
+    forward_brake(pwm_r, pwm_l);
 
 	}
 
@@ -684,14 +690,14 @@ int main(void)
   Motor_Init(&left_motor,  &htim4, TIM_CHANNEL_1, &htim2, GPIOA, GPIO_PIN_5, GPIOB, GPIO_PIN_9);
   Motor_Init(&right_motor, &htim4, TIM_CHANNEL_2, &htim3, GPIOC, GPIO_PIN_4, GPIOA, GPIO_PIN_7);
 
-  GPIO_PinState pb6 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_6);
-  GPIO_PinState pb7 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_7);
-  if(pb6 == GPIO_PIN_SET)
+  GPIO_PinState pb4 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4);
+  GPIO_PinState pb5 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5);
+  if(pb4 == GPIO_PIN_SET)
   {
-	  if(pb7==GPIO_PIN_SET)
+	  if(pb5==GPIO_PIN_SET)
 	  {
-		  basespeedl = 900;
-		  basespeedr = 900;
+		  basespeedl = 600;
+		  basespeedr = 600;
 		  Kp = 0.10315656;
 		  Kd = 1.03168776;
 	  }else
