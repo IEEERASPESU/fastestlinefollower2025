@@ -24,13 +24,6 @@
 #include "gpio.h"
 #include "n20_motor.h"
 
-/*
- A4 B7 B6
- 0  0  0   750 RPM,K_p = 0.09, K_d = 0.97375
- 0  0  1   800 RPM,K_p = 0.09, K_d = 0.9834875
- 0  1  0   850 RPM,K_p = 0.100152, K_d = 1.02282638
- 0  1  1   900 RPM,K_p = 0.10315656, K_d = 1.03168776
- */
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h" // Needed for debugging
@@ -86,7 +79,7 @@
 
 	//New variables ************************************************************
 	int last_error_l = 0, last_error_r = 0;
-	float Kp2 = 1.0, Kd2 = 0.5; // Example values, needs tuning
+	float Kp2 = 1, Kd2 = 0.5; // Example values, needs tuning float Kp2 = 1.0, Kd2 = 0.5;
     //extern int motorspeedl, motorspeedr; // if they’re declared elsewhere
 	int32_t last_encoder_l = 0; //Last left encoder position/ count
     int32_t last_encoder_r = 0; //Last right encoder position/ count
@@ -122,14 +115,27 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-	int _write(int file, char *ptr , int len)
+
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
+
+PUTCHAR_PROTOTYPE
+{
+    // Transmit the character via the specified UART.
+    HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+    return ch;
+}
+	 /* int _write(int file, char *ptr , int len)
 		{
 			int DataIdx;
 			for(DataIdx=0;DataIdx<len; DataIdx++){
 				ITM_SendChar(*ptr++);
 			}return len;
 		}
-
+	*/
 
 
 	void Set_Pin_Output (GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
@@ -220,7 +226,7 @@ void SystemClock_Config(void);
 
 
 		// Threshold
-		DELAY_US(4500);
+		DELAY_US(1000);
 		//DELAY_US(25);
 		/*for(int i=0;i<=SENSOR_DELAY;i++)
 			DELAY_US(500); */
@@ -389,10 +395,13 @@ void SystemClock_Config(void);
     {
     if (actives == 0)
         sharp_turn();
-    else
+     else{
+
+
     	Motor_Set_Speed(&right_motor, speed_right);
     	Motor_Set_Speed(&left_motor, speed_left);
     }
+   }
 
 	int errors_sum (int index, int abs)
 	{
@@ -673,11 +682,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM3_Init();
-  MX_TIM4_Init();
   MX_TIM2_Init();
-  MX_USART2_UART_Init();
   MX_I2C1_Init();
+  MX_TIM3_Init();
+  MX_USART2_UART_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   //************************************* */
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);  // Left motor encoder
@@ -715,11 +724,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  printf("helloww");
     /* USER CODE BEGIN 3 */
 	 //QTR16_read();
-
-    PID_control();         // Outer loop calculates desired motor speeds
+	 QTR16_read();
+    //PID_control();         // Outer loop calculates desired motor speeds
 	DELAY_US(200);
 
 	  //printf("Hi");
@@ -779,26 +788,6 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-
-/**
-  * @brief I2C1 Initialization Function
-  * @param None
-  * @retval None
-  */
-
-
-/**
-  * @brief TIM2 Initialization Function
-  * @param None
-  * @retval None
-  */
-
-/**
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
-
 
 /* USER CODE BEGIN 4 */
 

@@ -9,7 +9,9 @@
 #define INC_N20_MOTOR_H_
 // Core/Inc/n20_motor.h
 
-#include "stm32f4xx_hal.h"
+#include "stm32g4xx_hal.h"
+#include<stdlib.h>
+#include<math.h>
 
 // A structure to hold all data related to a single motor
 typedef struct {
@@ -44,7 +46,7 @@ void Motor_Init(N20_Motor_t* motor, TIM_HandleTypeDef* pwm_timer, uint32_t pwm_c
 void Motor_Set_Speed(N20_Motor_t* motor, int16_t speed);
 
 
-int Motor_Get_Scaled_RPM(N20_Motor_t* motor);
+int32_t Motor_Get_Scaled_RPM(N20_Motor_t* motor);
 
 void Motor_Stop(N20_Motor_t* motor);
 

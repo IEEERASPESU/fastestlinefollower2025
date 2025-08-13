@@ -1,0 +1,26 @@
+# STM32CubeIDE specific files
+.settings/
+.mxproject
+*.launch
+
+# Build artifacts and output directories
+Debug/
+Release/
+build/
+
+# C/C++ specific temporary files
+*.o
+*.d
+*.elf
+*.map
+*.list
+*.hex
+*.bin
+
+# Other miscellaneous files
+*.bak
+*.tmp
+*.swp
+
+# User-specific files (e.g., from Visual Studio Code if used)
+.vscode/

@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    gpio.h
   * @brief   This file contains all the function prototypes for
-  * the gpio.c file
+  *          the gpio.c file
   ******************************************************************************
   * @attention
   *
@@ -32,9 +32,13 @@ extern "C" {
 
 /* USER CODE END Includes */
 
-/* USER CODE BEGIN Prototypes */
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);
+
+/* USER CODE BEGIN Prototypes */
 
 /* USER CODE END Prototypes */
 
@@ -42,3 +46,4 @@ void MX_GPIO_Init(void);
 }
 #endif
 #endif /*__ GPIO_H__ */
+

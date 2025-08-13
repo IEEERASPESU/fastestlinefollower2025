@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    i2c.h
   * @brief   This file contains all the function prototypes for
-  * the i2c.c file
+  *          the i2c.c file
   ******************************************************************************
   * @attention
   *
@@ -34,13 +34,19 @@ extern "C" {
 
 extern I2C_HandleTypeDef hi2c1;
 
-/* USER CODE BEGIN Prototypes */
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
 
 void MX_I2C1_Init(void);
+
+/* USER CODE BEGIN Prototypes */
 
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ I2C_H__ */
+
+#endif /* __I2C_H__ */
+

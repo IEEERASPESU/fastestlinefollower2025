@@ -3,11 +3,11 @@
   ******************************************************************************
   * @file    usart.h
   * @brief   This file contains all the function prototypes for
-  * the usart.c file
+  *          the usart.c file
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -39,7 +39,6 @@ extern UART_HandleTypeDef huart2;
 /* USER CODE END Private defines */
 
 void MX_USART2_UART_Init(void);
-void MX_USART2_UART_DeInit(void); // De-initialization function
 
 /* USER CODE BEGIN Prototypes */
 
@@ -50,3 +49,4 @@ void MX_USART2_UART_DeInit(void); // De-initialization function
 #endif
 
 #endif /* __USART_H__ */
+
